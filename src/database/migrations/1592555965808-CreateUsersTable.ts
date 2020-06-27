@@ -29,6 +29,18 @@ export class CreateUsersTable1592555965808 implements MigrationInterface {
                     name: 'isActive',
                     type: 'tinyInt',
                     default: 1,
+                },
+                {
+                    name: 'createdAt',
+                    type: 'datetime',
+                    default: 'now()',
+                    isNullable: true,
+                },
+                {
+                    name: 'updatedAt',
+                    type: 'datetime',
+                    default: 'now()',
+                    isNullable: true,
                 }
             ]
         }))
