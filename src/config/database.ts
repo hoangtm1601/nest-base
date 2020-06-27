@@ -1,4 +1,4 @@
-import { IDatabaseConfig } from './interface/IDatabaseConfig'
+import { IDatabaseConfig } from './interface/idatabase.config'
 
 export default (): IDatabaseConfig => ({
   database_connection: process.env.DATABASE_CONNECTION || 'mysql',

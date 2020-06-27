@@ -3,7 +3,8 @@ import { UserRepository } from './user.repository'
 import { Injectable } from '@nestjs/common'
 import { CreateUserDto } from './dto/create-user.dto'
 import { EntityId } from 'typeorm/repository/EntityId'
-import { DeleteResult } from 'typeorm'
+import { DeleteResult, UpdateResult } from 'typeorm'
+import { UpdateUserDto } from './dto/update-user.dto'
 
 @Injectable()
 export class UserService {
@@ -29,5 +30,10 @@ export class UserService {
   
   getInactiveUsers(): Promise<User[]> {
     return this.userRepository.getInactiveUsers()
+  }
+  
+  async update(id: EntityId, updateUserDto: UpdateUserDto): Promise<User> {
+    await this.userRepository.update(id, updateUserDto);
+    return this.findById(id)
   }
 }

@@ -2,27 +2,27 @@ import { Injectable, Logger, Scope } from '@nestjs/common'
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class LoggerService extends Logger {
-  error(message: any, trace?: string, context?: string) {
+  error(message: string, trace?: string, context?: string): void {
     // TO DO
     super.error(message, trace, context)
   }
 
-  warn(message: any, context?: string) {
+  warn(message: string, context?: string): void {
     // TO DO
     super.warn(message, context)
   }
 
-  log(message: any, context?: string) {
+  log(message: string, context?: string): void {
     // TO DO
     super.log(message, context)
   }
 
-  debug(message: any, context?: string) {
+  debug(message: string, context?: string): void {
     // TO DO
     super.debug(message, context)
   }
 
-  verbose(message: any, context?: string) {
+  verbose(message: string, context?: string): void {
     // TO DO
     super.verbose(message, context)
   }

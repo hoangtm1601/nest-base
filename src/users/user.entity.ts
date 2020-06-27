@@ -12,9 +12,7 @@ export class User extends BaseEntity {
   @Column()
   lastName: string
 
-  @Exclude({
-    toClassOnly: true,
-  })
+  @Exclude()
   @Column()
   password: string
 

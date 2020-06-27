@@ -1,32 +1,50 @@
 import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common'
 import { LoggerService } from '../logger/custom.logger'
-import any = jasmine.any
+import { HttpArgumentsHost } from '@nestjs/common/interfaces/features/arguments-host.interface'
+import { Response } from 'express'
 
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {
-  constructor(private logger: LoggerService) {
+  constructor(private logger: LoggerService) {}
+
+  catch(exception: HttpException | Error, host: ArgumentsHost): void {
+    const ctx: HttpArgumentsHost = host.switchToHttp()
+    const response: Response = ctx.getResponse()
+    
+    // Handling error message and logging
+    this.handleMessage(exception)
+    
+    // Response to client
+    AllExceptionFilter.handleResponse(response, exception)
   }
-
-  catch(exception: unknown, host: ArgumentsHost) {
-    const ctx = host.switchToHttp()
-    const response = ctx.getResponse()
-    const request = ctx.getRequest()
-    let message: string | Object = 'Internal Server Error'
-    const status = exception instanceof HttpException ? exception.getStatus()
-      : HttpStatus.INTERNAL_SERVER_ERROR
-
+  
+  private handleMessage(exception: HttpException | Error): void {
+    let message = 'Internal Server Error'
+    
     if (exception instanceof HttpException) {
-      message = exception.getResponse()
+      message = JSON.stringify(exception.getResponse())
     } else if (exception instanceof Error) {
       message = exception.stack.toString()
     }
-
+  
     this.logger.error(message)
-
-    response.status(status).json({
-      statusCode: status,
-      occurAt: new Date().toISOString(),
-      path: request.url,
-    })
+  }
+  
+  private static handleResponse(response: Response , exception: HttpException | Error): void {
+    let responseBody: any = { message: 'Internal server error' }
+    let statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+    
+    if (exception instanceof HttpException) {
+      responseBody = exception.getResponse()
+      statusCode = exception.getStatus()
+      
+    } else if (exception instanceof Error) {
+      responseBody = {
+        statusCode: statusCode,
+        message: exception.stack
+      }
+    }
+  
+    response.status(statusCode).json(responseBody)
   }
 }

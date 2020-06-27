@@ -1,9 +1,21 @@
-import { Body, ClassSerializerInterceptor, Controller, Get, Post, Query, UseInterceptors } from '@nestjs/common'
+import {
+  Body,
+  ClassSerializerInterceptor,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseInterceptors,
+} from '@nestjs/common'
 import { User } from './user.entity'
 import { UserService } from './user.service'
 import { CreateUserDto } from './dto/create-user.dto'
 import { EntityId } from 'typeorm/repository/EntityId'
 import { plainToClass } from 'class-transformer'
+import { UpdateUserDto } from './dto/update-user.dto'
+import { UpdateResult } from 'typeorm'
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')
@@ -21,7 +33,7 @@ export class UserController {
   }
   
   @Get('/:id')
-  show(@Query('id') id: EntityId): Promise<User> {
+  show(@Param('id') id: EntityId): Promise<User> {
     return this.userService.findById(id)
   }
 
@@ -30,5 +42,10 @@ export class UserController {
     const createdUser = await this.userService.store(userData)
   
     return plainToClass(User, createdUser)
+  }
+  
+  @Put('/:id')
+  update(@Param('id') id: EntityId, @Body() userData: UpdateUserDto): Promise<User> {
+    return this.userService.update(id, userData)
   }
 }
