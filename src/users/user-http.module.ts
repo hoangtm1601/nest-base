@@ -7,7 +7,7 @@ import { LoggerService } from '../logger/custom.logger'
 
 @Module({
   imports: [UserModule, ConfigService, LoggerService],
-  providers: [UserService, ConfigService, LoggerService],
+  providers: [UserService],
   exports: [UserService],
   controllers: [UserController],
 })
