@@ -1,7 +1,7 @@
 import {
   Body,
   ClassSerializerInterceptor,
-  Controller,
+  Controller, Delete,
   Get, NotFoundException,
   Param,
   Post,
@@ -22,7 +22,7 @@ export class UserController {
 
   @Get()
   index(): Promise<User[]> {
-    return this.userService.findAll()
+    return this.userService.index()
   }
 
   @Get('/inactive')
@@ -49,5 +49,10 @@ export class UserController {
   @Put('/:id')
   update(@Param('id') id: EntityId, @Body() userData: UpdateUserDto): Promise<User> {
     return this.userService.update(id, userData)
+  }
+
+  @Delete('/:id')
+  destroy(@Param('id') id: EntityId) {
+    return this.userService.delete(id)
   }
 }
