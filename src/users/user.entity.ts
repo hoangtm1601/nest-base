@@ -1,10 +1,14 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm'
 import { Exclude, Expose } from 'class-transformer'
 
 @Entity({ name: 'users' })
 export class User extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
+
+  @Unique(['email'])
+  @Column()
+  email: string
 
   @Column()
   firstName: string
@@ -18,19 +22,19 @@ export class User extends BaseEntity {
 
   @Column({ default: true })
   isActive: boolean
-  
+
   @CreateDateColumn({
     default: `now()`,
     nullable: true,
   })
   createdAt: string
-  
+
   @UpdateDateColumn({
       default: `now()`,
       nullable: true,
   })
   updatedAt: string
-  
+
   @Expose()
   get fullName(): string {
     return `${this.firstName} ${this.lastName}`

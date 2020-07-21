@@ -1,6 +1,4 @@
-import { IDatabaseConfig } from './interface/idatabase.config'
-
-export default (): IDatabaseConfig => ({
+export default (): Record<string, any> => ({
   database_connection: process.env.DATABASE_CONNECTION || 'mysql',
   database_host: process.env.DATABASE_HOST,
   database_port: parseInt(process.env.DATABASE_PORT, 10) || 3306,
