@@ -6,8 +6,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { APP_FILTER } from '@nestjs/core'
 import { AllExceptionFilter} from './filter/exception.filter'
 
-import appConfig from './config/app'
-import databaseConfig from './config/database'
+import appConfig from './config/app.config'
+import databaseConfig from './config/database.config'
 import { LoggerModule } from './logger/logger.module'
 
 import { TypeOrmModule } from '@nestjs/typeorm'
