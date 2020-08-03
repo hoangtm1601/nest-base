@@ -1,4 +1,4 @@
 export default (): Record<string, string> => ({
-  jwtSecretKey: `nest-base-secret-key`,
-  jwtExpiresIn: `600s`,
+  jwtSecretKey: process.env.JWT_SECRET_KEY,
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN,
 })
