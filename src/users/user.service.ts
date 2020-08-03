@@ -9,7 +9,7 @@ export class UserService extends BaseService<User, UserRepository> {
     super(repository)
   }
 
-  findByEmail(email: string): Promise<User> {
+  findByEmail(email: string): Promise<User | null> {
     return this.repository.findOne({ email: email })
   }
 
