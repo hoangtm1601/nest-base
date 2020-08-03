@@ -5,6 +5,7 @@ import { LocalAuthGuard } from './guards/local-auth.guard'
 import { AuthService } from './auth.service'
 import { JwtAuthGuard } from './guards/jwt-auth.guard'
 import { UserService } from '../users/user.service'
+import { AuthUser } from '../decorators/auth.user.decorator'
 
 @Controller('auth')
 export class AuthController {
@@ -16,18 +17,17 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('/login')
   async login(@Request() request) {
-    return this.authService.login(request.user)
+    return this.authService.generateJwtToken(request.user)
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('/me')
-  async myProfile(@Request() request): Promise<any> {
-    const payload = request.user
-    const user = await this.userService.findById(payload.userId)
+  async myProfile(@Request() request, @AuthUser() authUser): Promise<any> {
+    const user = await this.userService.findById(authUser.userId)
 
     return {
       ...plainToClass(User, user),
-      payload
+      authUser
     }
   }
  }
