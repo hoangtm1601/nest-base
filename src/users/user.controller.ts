@@ -14,9 +14,12 @@ import { CreateUserDto } from './dto/create-user.dto'
 import { EntityId } from 'typeorm/repository/EntityId'
 import { plainToClass } from 'class-transformer'
 import { UpdateUserDto } from './dto/update-user.dto'
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
+import { AuthUser } from '../decorators/auth.user.decorator'
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')
+@UseGuards(JwtAuthGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
