@@ -11,9 +11,8 @@
 $ npm install
 ```
 
-
 ## Migration
-Note: The TypeORM is setting to auto synchronize between entity and DB table when application booting. If you wish to migration database, please using following command.
+Note: The TypeORM is not setting to auto synchronize between entity and DB table when application booting. If you wish to migration database, please using following command.
 ### Create new migration
 ```bash
 $ npm run migrate:create <migration name>

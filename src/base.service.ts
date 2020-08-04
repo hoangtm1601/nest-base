@@ -7,8 +7,9 @@ export class BaseService<T extends BaseEntity, R extends Repository<T>> implemen
   protected readonly repository: R
   protected readonly logger: LoggerService
 
-  constructor(repository: R) {
+  constructor(repository: R, logger: LoggerService) {
     this.repository = repository
+    this.logger = logger
   }
 
   index(): Promise<T[]> {
@@ -17,6 +18,10 @@ export class BaseService<T extends BaseEntity, R extends Repository<T>> implemen
 
   findById(id: EntityId): Promise<T> {
     return this.repository.findOne(id)
+  }
+  
+  findByIds(ids: [EntityId]): Promise<T[]> {
+    return this.repository.findByIds(ids)
   }
 
   store(data: any): Promise<T> {
