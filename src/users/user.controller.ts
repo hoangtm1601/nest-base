@@ -15,7 +15,7 @@ import { EntityId } from 'typeorm/repository/EntityId'
 import { plainToClass } from 'class-transformer'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
-import { AuthUser } from '../decorators/auth.user.decorator'
+import { DeleteResult } from 'typeorm/index'
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')
@@ -39,6 +39,7 @@ export class UserController {
     if (!user) {
       throw new NotFoundException()
     }
+    
     return user
   }
 
@@ -55,7 +56,7 @@ export class UserController {
   }
 
   @Delete('/:id')
-  destroy(@Param('id') id: EntityId) {
+  destroy(@Param('id') id: EntityId): Promise<DeleteResult> {
     return this.userService.delete(id)
   }
 }
