@@ -6,4 +6,5 @@ import { LoggerService } from './custom.logger'
   providers: [LoggerService],
   exports: [LoggerService],
 })
-export class LoggerModule {}
+export class LoggerModule {
+}

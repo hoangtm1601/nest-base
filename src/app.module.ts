@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 
 import { APP_FILTER } from '@nestjs/core'
-import { AllExceptionFilter} from './filter/exception.filter'
+import { AllExceptionFilter } from './filter/exception.filter'
 
 import appConfig from '@config/app.config'
 import databaseConfig from '@config/database.config'
@@ -12,7 +12,8 @@ import { LoggerModule } from './logger/logger.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { User } from './users/user.entity'
 import { UserHttpModule } from './users/user-http.module'
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './auth/auth.module'
+import { ValidatorModule } from '@validators/validator.module'
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { AuthModule } from './auth/auth.module';
         appConfig,
         databaseConfig,
         authConfig,
-      ]
+      ],
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -38,9 +39,9 @@ import { AuthModule } from './auth/auth.module';
     LoggerModule,
     UserHttpModule,
     AuthModule,
+    ValidatorModule,
   ],
-  controllers: [
-  ],
+  controllers: [],
   providers: [
     {
       provide: APP_FILTER,

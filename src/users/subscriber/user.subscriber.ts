@@ -6,7 +6,7 @@ import { ConfigService } from '@nestjs/config'
 @EventSubscriber()
 export class UserSubscriber implements EntitySubscriberInterface<User> {
   private readonly bcryptSalt: number
-  
+
   constructor(connection: Connection, private readonly configService: ConfigService) {
     connection.subscribers.push(this)
     this.bcryptSalt = configService.get<number>('bcryptSalt')
@@ -15,11 +15,11 @@ export class UserSubscriber implements EntitySubscriberInterface<User> {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   listenTo(): string | Function {
-    return User;
+    return User
   }
 
-  beforeInsert(event: InsertEvent<User>): Promise<void> | void {
+  async beforeInsert(event: InsertEvent<User>): Promise<void> {
     const { password } = event.entity
-    event.entity.password = bcrypt.hashSync(password, this.bcryptSalt)
+    event.entity.password = await bcrypt.hash(password, this.bcryptSalt)
   }
 }

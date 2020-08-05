@@ -30,18 +30,18 @@ export class User extends BaseEntity {
   createdAt: string
 
   @UpdateDateColumn({
-      default: `now()`,
-      nullable: true,
+    default: `now()`,
+    nullable: true,
   })
   updatedAt: string
-
-  @Expose()
-  get fullName(): string {
-    return `${this.firstName} ${this.lastName}`
-  }
 
   constructor(partial: Partial<User>) {
     super()
     Object.assign(this, partial)
+  }
+
+  @Expose()
+  get fullName(): string {
+    return `${this.firstName} ${this.lastName}`
   }
 }

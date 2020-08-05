@@ -6,4 +6,5 @@ export const ValidationConfig: ValidatorOptions | Record<string, any> = {
   errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
   forbidNonWhitelisted: true,
   disableErrorMessages: false,
+  skipMissingProperties: false,
 }

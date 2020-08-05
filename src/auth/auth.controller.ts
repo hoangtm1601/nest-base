@@ -11,23 +11,24 @@ import { AuthUser } from '../decorators/auth.user.decorator'
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly userService: UserService
-  ) {}
+    private readonly userService: UserService,
+  ) {
+  }
 
   @UseGuards(LocalAuthGuard)
   @Post('/login')
-  async login(@Request() request) {
+  login(@Request() request): Promise<{ accessToken: string }> {
     return this.authService.generateJwtToken(request.user)
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('/me')
   async myProfile(@Request() request, @AuthUser() authUser): Promise<any> {
-    const user = await this.userService.findById(authUser.userId)
+    const user = await this.userService.findById(authUser.sub)
 
     return {
       ...plainToClass(User, user),
-      authUser
+      authUser,
     }
   }
- }
+}
