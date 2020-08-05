@@ -1,4 +1,4 @@
-import { IsBoolean, IsDefined, IsEmail, IsNotEmpty, Length, Validate } from "class-validator";
+import { IsBoolean, IsEmail, IsNotEmpty, Length, Validate } from 'class-validator'
 import { PasswordConfirmValidator } from '@validators/password-confirm.validator'
 import { UniqueEmailValidator } from '@validators/unique-email.validator'
 

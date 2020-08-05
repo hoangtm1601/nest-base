@@ -1,14 +1,15 @@
 import { ValidationArguments, ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator'
-import { Inject, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
 import { UserService } from '../users/user.service'
 
-@ValidatorConstraint({name: 'isEmailUnique', async: true})
+@ValidatorConstraint({ name: 'isEmailUnique', async: true })
 @Injectable()
 export class UniqueEmailValidator implements ValidatorConstraintInterface {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) {
+  }
 
   defaultMessage(validationArguments?: ValidationArguments): string {
-    return `${validationArguments.value} is taken, please try another`;
+    return `${validationArguments.value} is taken, please try another`
   }
 
   async validate(value: any, validationArguments?: ValidationArguments): Promise<boolean> {

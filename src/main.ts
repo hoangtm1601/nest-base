@@ -6,7 +6,7 @@ import { ResponseTransformInterceptor } from './interceptors/response.transform.
 import { ValidationPipe } from '@nestjs/common'
 import { ValidationConfig } from '@config/validation.config'
 import { useContainer } from 'class-validator'
-import { ValidatorModule } from "@validators/validator.module"
+import { ValidatorModule } from '@validators/validator.module'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)

@@ -1,5 +1,10 @@
-{customLogger
-  "moduleFileExtensions": ["js", "json", "ts"],
+{
+  customLogger
+  "moduleFileExtensions": [
+    "js",
+    "json",
+    "ts"
+  ],
   "rootDir": ".",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",

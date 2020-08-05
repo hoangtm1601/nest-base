@@ -15,7 +15,7 @@ export class UserSubscriber implements EntitySubscriberInterface<User> {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   listenTo(): string | Function {
-    return User;
+    return User
   }
 
   async beforeInsert(event: InsertEvent<User>): Promise<void> {

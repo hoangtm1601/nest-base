@@ -11,12 +11,13 @@ import { AuthUser } from '../decorators/auth.user.decorator'
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly userService: UserService
-  ) {}
+    private readonly userService: UserService,
+  ) {
+  }
 
   @UseGuards(LocalAuthGuard)
   @Post('/login')
-  login(@Request() request): Promise<{ accessToken: string}> {
+  login(@Request() request): Promise<{ accessToken: string }> {
     return this.authService.generateJwtToken(request.user)
   }
 
@@ -27,7 +28,7 @@ export class AuthController {
 
     return {
       ...plainToClass(User, user),
-      authUser
+      authUser,
     }
   }
- }
+}

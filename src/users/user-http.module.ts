@@ -11,4 +11,5 @@ import { LoggerService } from '../logger/custom.logger'
   exports: [UserService],
   controllers: [UserController],
 })
-export class UserHttpModule {}
+export class UserHttpModule {
+}

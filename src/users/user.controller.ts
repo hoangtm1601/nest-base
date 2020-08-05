@@ -1,11 +1,13 @@
 import {
   Body,
   ClassSerializerInterceptor,
-  Controller, Delete,
-  Get, NotFoundException,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
   Param,
   Post,
-  Put, UseGuards,
+  Put,
   UseInterceptors,
 } from '@nestjs/common'
 import { User } from './user.entity'
@@ -14,14 +16,14 @@ import { CreateUserDto } from './dto/create-user.dto'
 import { EntityId } from 'typeorm/repository/EntityId'
 import { plainToClass } from 'class-transformer'
 import { UpdateUserDto } from './dto/update-user.dto'
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 import { DeleteResult } from 'typeorm/index'
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')
 // @UseGuards(JwtAuthGuard)
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) {
+  }
 
   @Get()
   index(): Promise<User[]> {
