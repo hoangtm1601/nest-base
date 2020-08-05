@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+  workspace:
+    build:
+      context: .
+      dockerfile: docker/prod/node/Dockerfile
+    image: nest_workspace
+    restart: on-failure
+    container_name: nest_workspace
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./:/usr/src/app
+    networks:
+      - internal
+    tty: true
+    stdin_open: true
+  mysql:
+    image: mysql:5.7.31
+    restart: always
+    container_name: nest-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nest-base
+      MYSQL_USER: nest-base
+      MYSQL_PASSWORD: secret
+    ports:
+      - "33060:3306"
+    volumes:
+      - .mysql-data:/var/lib/mysql
+    networks:
+      - internal
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - internal
+networks:
+  internal:
+    name: internal
+    driver: bridge

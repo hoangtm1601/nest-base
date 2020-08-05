@@ -12,7 +12,8 @@
     "baseUrl": "./",
     "incremental": true,
     "paths": {
-      "@config/*": ["src/config/*"]
+      "@config/*": ["src/config/*"],
+      "@validators/*": ["src/validators/*"]
     }
   }
 }

@@ -16,23 +16,25 @@ export class AuthService {
   async validateUser(email: string, password: string): Promise<User> {
     const user = await this.userService.findByEmail(email)
     if (!user) {
-      throw new UnauthorizedException()
+      throw new UnauthorizedException('Username or password is incorrect')
     }
-    if (!bcrypt.compareSync(password, user.password)) {
-      throw new UnauthorizedException()
+    const compareResult = await bcrypt.compare(password, user.password)
+
+    if (!compareResult) {
+      throw new UnauthorizedException('Username or password is incorrect')
     }
 
     return user
   }
 
-  async generateJwtToken(user: User) {
+  async generateJwtToken(user: User): Promise<{ accessToken: string }> {
     const payload = {
       email: user.email,
       sub: user.id
     }
 
     return {
-      access_token: this.jwtService.sign(payload, {
+      accessToken: await this.jwtService.signAsync(payload, {
         expiresIn: this.configService.get<string>('jwtExpiresIn')
       })
     }

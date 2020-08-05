@@ -19,7 +19,7 @@ import { DeleteResult } from 'typeorm/index'
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -39,7 +39,7 @@ export class UserController {
     if (!user) {
       throw new NotFoundException()
     }
-    
+
     return user
   }
 

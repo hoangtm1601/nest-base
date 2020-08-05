@@ -13,6 +13,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { User } from './users/user.entity'
 import { UserHttpModule } from './users/user-http.module'
 import { AuthModule } from './auth/auth.module';
+import { ValidatorModule } from "@validators/validator.module"
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { AuthModule } from './auth/auth.module';
     LoggerModule,
     UserHttpModule,
     AuthModule,
+    ValidatorModule,
   ],
   controllers: [
   ],
@@ -48,5 +50,4 @@ import { AuthModule } from './auth/auth.module';
     },
   ],
 })
-export class AppModule {
-}
+export class AppModule {}
