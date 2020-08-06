@@ -9,7 +9,9 @@ services:
     restart: on-failure
     container_name: nest_workspace
     ports:
-      - "3000:3000"
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
     volumes:
       - ./:/usr/src/app
     networks:
@@ -20,19 +22,22 @@ services:
     image: mysql:5.7.31
     restart: always
     container_name: nest-mysql
+    env_file:
+      - .env
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: nest-base
-      MYSQL_USER: nest-base
-      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: ${DATABASE_DB_NAME}
+      MYSQL_USER: ${DATABASE_USERNAME}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
     ports:
-      - "33060:3306"
+      - "3306:3306"
     volumes:
       - .mysql-data:/var/lib/mysql
     networks:
       - internal
   adminer:
     image: adminer:latest
+    container_name: nest-adminer
     restart: always
     ports:
       - 8080:8080

@@ -7,7 +7,7 @@ import {
   NotFoundException,
   Param,
   Post,
-  Put,
+  Put, UseGuards,
   UseInterceptors,
 } from '@nestjs/common'
 import { User } from './user.entity'
@@ -17,10 +17,11 @@ import { EntityId } from 'typeorm/repository/EntityId'
 import { plainToClass } from 'class-transformer'
 import { UpdateUserDto } from './dto/update-user.dto'
 import { DeleteResult } from 'typeorm/index'
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard'
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('users')
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {
   }
