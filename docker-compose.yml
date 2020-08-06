@@ -9,9 +9,12 @@ services:
     restart: on-failure
     container_name: nest_workspace
     ports:
-      - "3000:3000"
+      - ${PORT}:${PORT}
     volumes:
       - ./:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - .env
     networks:
       - internal
     tty: true
