@@ -7,7 +7,8 @@ import {
   NotFoundException,
   Param,
   Post,
-  Put, UseGuards,
+  Put,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common'
 import { User } from './user.entity'
