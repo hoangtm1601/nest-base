@@ -8,12 +8,10 @@ import appConfig from '@config/app.config'
 import databaseConfig from '@config/database.config'
 import authConfig from '@config/auth.config'
 import { LoggerModule } from './logger/logger.module'
-
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { User } from './users/user.entity'
 import { UserHttpModule } from './users/user-http.module'
 import { AuthModule } from './auth/auth.module'
 import { ValidatorModule } from '@validators/validator.module'
+import { DatabaseModule } from './database/database.module'
 
 @Module({
   imports: [
@@ -25,21 +23,11 @@ import { ValidatorModule } from '@validators/validator.module'
         authConfig,
       ],
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: databaseConfig().database_host,
-      port: databaseConfig().database_port,
-      username: databaseConfig().database_username,
-      password: databaseConfig().database_password,
-      database: databaseConfig().database,
-      entities: [
-        User,
-      ],
-    }),
     LoggerModule,
     UserHttpModule,
     AuthModule,
     ValidatorModule,
+    DatabaseModule,
   ],
   controllers: [],
   providers: [
